@@ -1,0 +1,294 @@
+/* ============================== */
+/* ! Layout for desktop version   */
+/* ============================== */
+
+/* Colors
+RED: E64C4C
+BLUE: 2B2942
+GRAY: 262624
+GRAY2: 85857f
+GREEN: 8DB351
+GREEN2: 88ff59
+
+PINK: DC8989
+DK BLUE: 111026
+YELLOW: fff949
+ORANGE: ffae5f
+*/
+
+body {
+	background: #e1e1e1 url('../img/bgs/lghtmesh/lghtmesh.png');
+}
+
+#pageAlert {
+	padding-bottom: 10px;
+	margin-bottom: 0px;
+}
+
+.container {
+	
+}
+
+.center {
+	text-align: center;
+}
+
+.left {
+	text-align: left;
+}
+
+.right {
+	text-align: right;
+}
+
+.blue {
+	background: #2B2942;
+	color: #fff;
+}
+
+.white {
+	background: #fff;
+}
+
+.red {
+	background: #E64C4C;
+	color: #fff;
+}
+
+.padded5 {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.padded10 {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.paddedLR {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.padded5Bottom{
+	padding-bottom: 5px;
+}
+
+ul.form-horizontal, ul.form-vertical {
+    list-style-type:none;
+	list-style-position:outside;
+	margin:0px;
+	padding:0px;
+}
+
+ul.form-vertical {
+	padding-bottom: 20px;
+}
+
+ul.form-horizontal li {
+	display: inline;
+}
+
+.form-item.li{
+	position: relative;
+}
+
+h2 {
+	display: inline;
+}
+
+.required {
+	color:#d45252;
+	margin:5px 0 0 0;
+	display:inline;
+	float:right;
+}
+
+.form-item label {
+	width:170px;
+	margin-top: 3px;
+	display:inline-block;
+	float:left;
+	padding:3px;
+}
+
+.form-item input:focus, .form-item textarea:focus { /* add this to the already existing style */
+	padding:10px;
+}
+
+.form-item input, .form-item textarea { /* add this to the already existing style */
+	-moz-transition: padding .25s;
+	-webkit-transition: padding .25s;
+	-o-transition: padding .25s;
+	transition: padding .25s;
+}
+
+.form-item input:required, .form-item textarea:required {
+	background: #fff url('../img/red_asterisk.png') no-repeat 98% center;
+}
+
+.form-vertical li.form-btn {
+	margin-left: 176px;
+}
+
+.btn-danger .form-item.error {
+	color: #111026;
+}
+
+.btn-primary .form-item.error, .form-item.error {
+	color: #E64C4C;
+}
+
+.form-item.error input{
+	border: 1px solid #E64C4C;
+}
+
+.headline-red{
+  border-top: 3px solid #E64C4C;
+  color: #FFF;
+}
+
+.headline-blue{
+  border-top: 3px solid #2B2942;
+  color: #FFF;
+}
+
+.border-left {
+	border-left: 1px dashed #ccc;
+}
+
+.border-right {
+	border-right: 1px dashed #ccc;
+}
+
+.border-bottom {
+	border-bottom: 1px dashed #ccc;
+}
+
+.game {
+	border: 1px solid #000;
+	background: #e1e1e1 url('../img/bgs/subtle_dots/subtle_dots.png');
+	width: 99%;
+	height: 90px;
+	margin: 0 auto;
+	margin-bottom: 10px;
+}
+.gameTable {
+	width: 100%;
+}
+}
+.gameTeams {
+	width: 90%;
+}
+.gameScores {
+	width: 9%;
+	height: 70px;
+}
+.gameTeam {
+	font-weight: bold;
+	font-size: 36px;
+}
+
+.gameStatus {
+	height: 20px;
+	background: #000;
+	color: #fff;
+	font-size: 12px;
+}
+
+.statusPass {
+	background: green;
+	color: #fff;
+	font-weight: bold;
+}
+
+.statusFail {
+	background: red;
+	color: #fff;
+	font-weight: bold;
+}
+
+.statusFail a, .statusPass a {
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.clearBoth {
+	clear: both;
+}
+
+.full100 {
+	height: 100%;
+	width: 100%;
+}
+
+.good {
+	font-size: 16px;
+}
+
+/* ============================ */
+/* ! Layout for resize version   */
+/* ============================ */
+@media handheld, only screen and (max-width: 1091px) {
+	.paddedLR {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	.form-vertical li.form-btn {
+		margin-left: 0px;
+	}
+	.form-vertical {
+		text-align: center;
+	}
+	.form-vertical .form-item label {
+		width: 100%;
+	}
+}
+
+/* ============================ */
+/* ! Layout for iPad2 version   */
+/* ============================ */
+@media handheld, only screen and (max-width: 1025px) {
+	.paddedLR {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	.form-vertical li.form-btn {
+		margin-left: 0px;
+	}
+}
+
+/* ============================= */
+/* ! Layout for mobile version   */
+/* ============================= */
+
+@media handheld, only screen and (max-width: 767px) {
+
+	body {
+		
+	}
+
+	.gameTeam {
+		font-weight: bold;
+		font-size: 18px;
+	}
+
+}
+
+
+/* ========================================== */
+/* ! Provide higher res assets for iPhone 4   */
+/* ========================================== */
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) { 
+
+/*	.logo {
+		background: url(logo2x.jpg) no-repeat;
+		background-size: 212px 303px;
+	}*/
+
+}
+
+@media only screen and (max-width: 459px) {
+	.form-vertical li.form-btn {
+		margin-left: 0px;
+	}
+}
