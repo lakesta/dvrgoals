@@ -47,7 +47,7 @@ include_once('dvrgoals.php');
 							<table class="gameTable">
 								<tr>
 									<td colspan="2" class="gameStatus">
-										<?php echo strtoupper($game['status']); ?>
+										<?php echo $game['status'];  if ($game['status'] == 'Upcoming') { echo " - " . $game['date']; } ?>
 									</td>
 								</tr>
 								<tr>

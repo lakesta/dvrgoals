@@ -1,14 +1,15 @@
 <?php
+date_default_timezone_set('America/Chicago');
 class DVRGoals {
 	public static function getData() {
 		$urls = array(
-			'euro' => 'http://espnfc.com/bottomline/scores/scores?scoresSource=euro',
-			'uk' => 'http://espnfc.com/bottomline/scores/scores?scoresSource=uk',
+			'yesterday' => 'http://api.football-data.org/alpha/fixtures?timeFrame=p1',
+			'todayNtomorrow' => 'http://api.football-data.org/alpha/fixtures?timeFrame=n1'
 		);
 
 		$results = array();
 		foreach ($urls as $origin => $url) {
-			$results[] = DVRGoals::customGet($url);
+			$results[] = json_decode(DVRGoals::customGet($url));
 		}
 		
 		$data = array();
@@ -18,6 +19,34 @@ class DVRGoals {
 
 		return $data;
 
+	}
+
+	public static function parseResult($result) {
+		$rawscores = array();
+		$games = array();
+		
+		foreach ($result->fixtures as $k => $v) {
+
+			$team1 = array(
+				'name' => $v->homeTeamName,
+				'score' => ($v->result->goalsHomeTeam >= 0) ? (int)$v->result->goalsHomeTeam : 0,
+				'found' => true
+			);
+
+			$team2 = array(
+				'name' => $v->homeAwayName,
+				'score' => ($v->result->goalsAwayTeam >= 0) ? (int)$v->result->goalsAwayTeam : 0,
+				'found' => true
+			);
+
+			$status = ($v->status == "TIMED") ? "Upcoming" : "Completed";
+
+			$date = date("l, F jS, Y h:i:s A", strtotime($v->date));
+
+			$games[] = array('home' => $team1, 'away' => $team2, 'status' => $status, 'date' => $date);
+		}
+
+		return $games;
 	}
 
 	// Return URL results via cURL or fopen
@@ -45,91 +74,13 @@ class DVRGoals {
 			$opts = array(
 				'http' => array (
 					'method' => 'GET', 
-					'header' => "User-Agent: " . "RESTClient" . "\r\n"
+					'header' => "X-Auth-Token: d7acbdacc9fb44b992ea28ccb4fc2886",
 				)
 			);
 			$context = stream_context_create($opts);
-			$fp = fopen($url, 'r', false, $context);
-			$result = fpassthru($fp);
-			fclose($fp);
+			$result = file_get_contents($url, false, $context);
 		}
+		
 		return $result;
 	}// end function customURL
-
-
-	public static function parseResult($result) {
-		$rawscores = array();
-		$games = array();
-
-		parse_str($result, $rawscores);
-		
-		foreach ($rawscores as $k => $v) {
-			if (preg_match('/_s_left(\d+)/', $k, $matches) ) {
-				
-				$team1 = array('name' => '', 'score' => 0, 'found' => false);
-				$team2 = array('name' => '', 'score' => 0, 'found' => false);
-				$status = '';
-
-				/*
-string 'Deportivo La Coru&#241;a v Barcelona (4:00 PM ET)' (length=49)
- */
-
-				$v_array = explode(" ", $v);
-				foreach ($v_array as $x) {
-					if ($x == '-') {
-						continue;
-					}
-
-					if ($x == 'v'){
-						$team1['found'] = true;
-						continue;
-					}
-
-					if (strpos($x, '(') !== false) {
-						$team2['found'] = true;
-						$x = preg_replace('~\(~', '', $x);
-						$x = preg_replace('~\)~', '', $x);
-						$status = $x;
-						continue;
-					}
-
-					if ($team1['found'] && $team2['found']) {
-						$x = preg_replace('~\(~', '', $x);
-						$x = preg_replace('~\)~', '', $x);
-						$status .= ' ' . $x;
-						continue;
-					}
-
-					if (!is_numeric($x)){
-						if (!$team1['found']){
-							if ($team1['name'] != '') {
-								$team1['name'] .= ' ' . $x;
-							} else {
-								$team1['name'] = $x;
-							}
-						} else {
-							if ($team2['name'] != '') {
-								$team2['name'] .= ' ' . $x;
-							} else {
-								$team2['name'] = $x;
-							}
-						}
-					} else {
-						if (!$team1['found']){
-							$team1['score'] = (int)$x;
-							$team1['found'] = true;
-						} else {
-							$team2['score'] = (int)$x;
-							$team1['found'] = true;
-						}
-					}
-				}
-
-				$games[] = array('home' => $team1, 'away' => $team2, 'status' => $status);
-
-			}
-		}
-
-		return $games;
-	}
 }
