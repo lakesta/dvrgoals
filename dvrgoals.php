@@ -41,7 +41,7 @@ class DVRGoals {
 
 			$status = ($v->status == "TIMED") ? "Upcoming" : "Completed";
 
-			$date = date("l, F jS, Y \at g:i:s A", strtotime($v->date));
+			$date = date("l, F jS, Y @ g:i:s A", strtotime($v->date));
 
 			$games[] = array('home' => $team1, 'away' => $team2, 'status' => $status, 'date' => $date);
 		}
