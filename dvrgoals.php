@@ -34,7 +34,7 @@ class DVRGoals {
 			);
 
 			$team2 = array(
-				'name' => $v->homeAwayName,
+				'name' => $v->awayTeamName,
 				'score' => ($v->result->goalsAwayTeam >= 0) ? (int)$v->result->goalsAwayTeam : 0,
 				'found' => true
 			);
@@ -80,7 +80,7 @@ class DVRGoals {
 			$context = stream_context_create($opts);
 			$result = file_get_contents($url, false, $context);
 		}
-		
+
 		return $result;
 	}// end function customURL
 }
