@@ -1,7 +1,12 @@
 <?php
 date_default_timezone_set('America/Chicago');
+
+require 'vendor/autoload.php';
+use GuzzleHttp\Client;
+
 class DVRGoals {
 	public static function getData() {
+		$client = new Client();
 		$urls = array(
 			'yesterday' => 'http://api.football-data.org/alpha/fixtures?timeFrame=p1',
 			'todayNtomorrow' => 'http://api.football-data.org/alpha/fixtures?timeFrame=n1'
@@ -9,7 +14,9 @@ class DVRGoals {
 
 		$results = array();
 		foreach ($urls as $origin => $url) {
-			$results[] = json_decode(DVRGoals::customGet($url));
+			$header = array('headers' => array('X-Auth-Token' => 'd7acbdacc9fb44b992ea28ccb4fc2886'));
+			$response = $client->get($url, $header);
+			$results[] = json_decode($response->getBody());
 		}
 		
 		$data = array();
