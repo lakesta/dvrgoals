@@ -71,10 +71,6 @@ include_once('dvrgoals.php');
 	</div>
 </div>
 
-</body>
-
-</html>
-
 <!-- Load javascripts after page has loaded -->
 
 <!--css3-mediaqueries-js - http://code.google.com/p/css3-mediaqueries-js/ - Enables media queries in some unsupported browsers-->
@@ -86,5 +82,20 @@ include_once('dvrgoals.php');
 <!-- Twitter Bootstrap -->
 <script type="text/javascript" src="js/bootstrap.js"></script>
 
-<!-- Speedy Tick -->
+<!-- DVR Goals -->
 <script type="text/javascript" src="js/dvrgoals.js"></script>
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-43959921-5', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+
+</html>
