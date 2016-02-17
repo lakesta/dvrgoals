@@ -34,6 +34,20 @@ include_once('dvrgoals.php');
 </div>
 <div class="container">
 	<div class="row">
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<!-- DVRGoals Ad Campaign -->
+		<ins class="adsbygoogle"
+		     style="display:block"
+		     data-ad-client="ca-pub-2382003441171908"
+		     data-ad-slot="5326318277"
+		     data-ad-format="auto"></ins>
+		<script>
+		(adsbygoogle = window.adsbygoogle || []).push({});
+		</script>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
 		<div class="onecol"></div>
 		<div class="tencol center">
 			<?php 
