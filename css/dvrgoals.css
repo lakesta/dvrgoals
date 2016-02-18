@@ -224,6 +224,17 @@ h2 {
 	font-size: 16px;
 }
 
+.goals {
+	display: none;
+}
+
+.click {
+	cursor: pointer;
+}
+
+.click:hover {
+	text-decoration: underline;
+}
 /* ============================ */
 /* ! Layout for resize version   */
 /* ============================ */

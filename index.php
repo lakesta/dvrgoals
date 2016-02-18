@@ -2,6 +2,25 @@
 <html lang="en">
 <?php
 include_once('dvrgoals.php');
+$data = DVRGoals::getData(); 
+$gamecount = 0;
+$output = array();
+foreach ($data as $origin => $games) {
+	foreach ($games as $game) {
+		$game['goals'] = $game['home']['score'] + $game['away']['score'];
+		$game['id'] = $gamecount;
+		if ($game['status'] == 'Upcoming') {
+			$output['upcoming'][] = $game;
+		} else {
+			if ($game['goals'] == 0) {
+				$output['nogoals'][] = $game;
+			} else {
+				$output['goals'][] = $game;
+			}
+		}
+		$gamecount++;
+	}
+}
 ?>
 <head>
 
@@ -9,92 +28,158 @@ include_once('dvrgoals.php');
 	<title>DVR Goals - no scores, just the goals</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
-	<!-- Bootstrap styles loaded first so don't override 1140 grid -->
-	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen" />
+	<!-- Bootstrap styles -->
+	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="screen" />
 
-	<!-- 1140px Grid styles for IE -->
-	<!--[if lte IE 9]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" /><![endif]-->
-
-	<!-- The 1140px Grid - http://cssgrid.net/ -->
-	<link rel="stylesheet" href="css/1140.css" type="text/css" media="screen" />
-	
 	<!-- DVR Goals styles -->
     <link rel="stylesheet" href="css/dvrgoals.css" type="text/css" media="screen" />
 
 </head>
 
 <body>
-
 <div class="container padded5">
-	<div class="row center border-bottom">
-		<h1>- DVR Goals -</h1>
-		<p class="good">This site answers the simple question, "Were there goals scored in this match?"</p>
-		<p class="good">We don't give away the score but clicking on YES will tell you how many total goals were scored in the match.</p>
+	<div class="row center">
+		<nav class="navbar navbar-default">
+		  <div class="container-fluid">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <a class="navbar-brand" href="#" style="padding-top: 0px; padding-bottom: 0px;" id="logo"><img src="img/dvrgoals_logo.png" style="width: 48px; height: 48px;"></a>
+		    </div>
+
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      <ul class="nav navbar-nav">
+		        <li><a href="#goals" class="link" data-link="goals">Goals</a></li>
+		        <li><a href="#nogoals" class="link" data-link="nogoals">No Goals</a></li>
+		        <li><a href="#upcoming" class="link" data-link="upcoming">Upcoming</a></li>
+		      </ul>
+		      <!--
+		      <form class="navbar-form navbar-right" role="search">
+		        <div class="form-group">
+		          <input type="text" class="form-control filterContent" placeholder="Search" data-element="tr" name="display">
+		        </div>
+		      </form>
+		      -->
+		    </div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>
 	</div>
 </div>
+
 <div class="container">
 	<div class="row">
-		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-		<!-- DVRGoals Ad Campaign -->
-		<ins class="adsbygoogle"
-		     style="display:block"
-		     data-ad-client="ca-pub-2382003441171908"
-		     data-ad-slot="5326318277"
-		     data-ad-format="auto"></ins>
-		<script>
-		(adsbygoogle = window.adsbygoogle || []).push({});
-		</script>
-	</div>
-</div>
-<div class="container">
-	<div class="row">
-		<div class="onecol"></div>
-		<div class="tencol center">
-			<?php 
-				$data = DVRGoals::getData(); 
-				$gamecount = 1;
-				foreach ($data as $origin => $games) {
-					foreach ($games as $game) { 
-						$goals = $game['home']['score'] + $game['away']['score'];
-						?>
-						<div class="game">
-							<table class="gameTable">
-								<tr>
-									<td colspan="2" class="gameStatus">
-										<?php echo $game['status'];  if ($game['status'] == 'Upcoming') { echo " - " . $game['date']; } ?>
-									</td>
-								</tr>
-								<tr>
-									<td class="gameTeams">
-										<span class="gameTeam"><?php echo $game['home']['name']; ?></span>
-										<span class="vs">vs.</span>
-										<span class="gameTeam"><?php echo $game['away']['name']; ?></span>
-									</td>
-									<td class="gameScores <?php echo ($goals > 0) ? 'statusPass' : 'statusFail'; ?>">
-										<a class="gameScore" data-id="<?php echo $gamecount; ?>"><span class="full100"><?php echo ($goals > 0) ? "YES" : "NO"; ?></span></a>
-										<a class="gameGoals" data-id="<?php echo $gamecount; ?>"><span class="full100">Goals: <?php echo $goals; ?></span></a>
-									</td>
-								</tr>
-							</table>
-						</div>
-				<?php $gamecount++;
-					}
-				} ?>
+		<div class="col-xs-12 center">
+			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- DVRGoals Ad Campaign -->
+			<ins class="adsbygoogle"
+			     style="display:block"
+			     data-ad-client="ca-pub-2382003441171908"
+			     data-ad-slot="5326318277"
+			     data-ad-format="auto"></ins>
+			<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
 		</div>
-		<div class="onecol last"></div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 well" id="display">
+			<table class="table table-striped" id="goals">
+				<caption>Games with goals scored</caption>
+				<thead>
+					<tr>
+						<th>Status</th>
+						<th>Home</th>
+						<th>Away</th>
+						<th>Goals</th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php foreach ($output['goals'] as $g) { ?>
+					<tr>
+						<td><?php echo $g['status']; ?></td>
+						<td><?php echo $g['home']['name']; ?></td>
+						<td><?php echo $g['away']['name']; ?></td>
+						<td><span class="click" data-id="<?php echo $g['id']; ?>">click</span><span class="goals" data-id="<?php echo $g['id']; ?>"><?php echo $g['goals']; ?></span></td>
+					</tr>
+				<?php } ?>
+				</tbody>
+			</table>
+			<table class="table table-striped" id="nogoals">
+				<caption>Games with no goals scored</caption>
+				<?php if (!empty($output['nogoals'])) { ?>
+				<thead>
+					<tr>
+						<th>Status</th>
+						<th>Home</th>
+						<th>Away</th>
+						<th>Goals</th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php foreach ($output['nogoals'] as $g) { ?>
+					<tr>
+						<td><?php echo $g['status']; ?></td>
+						<td><?php echo $g['home']['name']; ?></td>
+						<td><?php echo $g['away']['name']; ?></td>
+						<td>Bore draw</td>
+					</tr>
+				<?php } ?>
+				</tbody>
+				<?php } else { ?>
+				<tbody>
+					<tr>
+						<td>No games available</td>
+					</tr>
+				</tbody>
+				<?php } ?>
+			</table>
+			<table class="table table-striped" id="upcoming">
+				<caption>Upcoming Games</caption>
+				<?php if (!empty($output['upcoming'])) { ?>
+				<thead>
+					<tr>
+						<th>Team 1</th>
+						<th>Team 2</th>
+						<th>Date</th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php foreach ($output['upcoming'] as $g) { ?>
+					<tr>
+						<td><?php echo $g['home']['name']; ?></td>
+						<td><?php echo $g['away']['name']; ?></td>
+						<td><?php echo $g['date']; ?></td>
+					</tr>
+				<?php } ?>
+				</tbody>
+				<?php } else { ?>
+				<tbody>
+					<tr>
+						<td>No games available</td>
+					</tr>
+				</tbody>
+				<?php } ?>
+			</table>
+		</div>
 	</div>
 </div>
 
 <!-- Load javascripts after page has loaded -->
 
-<!--css3-mediaqueries-js - http://code.google.com/p/css3-mediaqueries-js/ - Enables media queries in some unsupported browsers-->
-<script type="text/javascript" src="js/css3-mediaqueries.js"></script>
+<!-- JQuery 2.2.0 minified -->
+<script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
 
-<!-- JQuery 1.8.2 minified -->
-<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
-
-<!-- Twitter Bootstrap -->
-<script type="text/javascript" src="js/bootstrap.js"></script>
+<!-- Twitter Bootstrap 3 -->
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 
 <!-- DVR Goals -->
 <script type="text/javascript" src="js/dvrgoals.js"></script>
