@@ -8,8 +8,8 @@ class DVRGoals {
 	public static function getData() {
 		$client = new Client();
 		$urls = array(
-			'yesterday' => 'http://api.football-data.org/alpha/fixtures?timeFrame=p1',
-			'todayNtomorrow' => 'http://api.football-data.org/alpha/fixtures?timeFrame=n1'
+			'yesterday' => 'http://api.football-data.org/v1/fixtures?timeFrame=p1',
+			'todayNtomorrow' => 'http://api.football-data.org/v1/fixtures?timeFrame=n1'
 		);
 
 		$results = array();

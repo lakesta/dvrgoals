@@ -74,23 +74,6 @@ foreach ($data as $origin => $games) {
 
 <div class="container">
 	<div class="row">
-		<div class="col-xs-12 center">
-			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-			<!-- DVRGoals Ad Campaign -->
-			<ins class="adsbygoogle"
-			     style="display:block"
-			     data-ad-client="ca-pub-2382003441171908"
-			     data-ad-slot="5326318277"
-			     data-ad-format="auto"></ins>
-			<script>
-			(adsbygoogle = window.adsbygoogle || []).push({});
-			</script>
-		</div>
-	</div>
-</div>
-
-<div class="container">
-	<div class="row">
 		<div class="col-xs-12 well" id="display">
 			<table class="table table-striped" id="goals">
 				<caption>Games with goals scored</caption>
