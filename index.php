@@ -94,6 +94,7 @@ foreach ($data as $origin => $games) {
 		<div class="col-xs-12 well" id="display">
 			<table class="table table-striped" id="goals">
 				<caption>Games with goals scored</caption>
+				<?php if (!empty($output['goals'])) { ?>
 				<thead>
 					<tr>
 						<th>Status</th>
@@ -112,6 +113,13 @@ foreach ($data as $origin => $games) {
 					</tr>
 				<?php } ?>
 				</tbody>
+				<?php } else { ?>
+				<tbody>
+					<tr>
+						<td>No games available</td>
+					</tr>
+				</tbody>
+				<?php } ?>
 			</table>
 			<table class="table table-striped" id="nogoals">
 				<caption>Games with no goals scored</caption>
